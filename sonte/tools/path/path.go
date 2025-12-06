@@ -7,12 +7,12 @@ import (
 	"strings"
 )
 
-// Dire returns a path's parent directory.
+// Dire returns a file path's parent directory.
 func Dire(orig string) string {
 	return filepath.Dir(orig)
 }
 
-// Extn returns a path's extension with a leading dot.
+// Extn returns a file path's extension with a leading dot.
 func Extn(orig string) string {
 	base := filepath.Base(orig)
 	if clip := strings.Index(base, "."); clip != -1 {
@@ -22,7 +22,7 @@ func Extn(orig string) string {
 	return ""
 }
 
-// Glob returns all paths in a directory matching an extension.
+// Glob returns all file paths in a directory matching an extension.
 func Glob(dire, extn string) []string {
 	glob := filepath.Join(dire, "*"+extn)
 	origs, _ := filepath.Glob(glob)
@@ -30,12 +30,12 @@ func Glob(dire, extn string) []string {
 	return origs
 }
 
-// Join returns a path from a directory, name and extension.
+// Join returns a file path from a directory, name and extension.
 func Join(dire, name, extn string) string {
 	return filepath.Join(dire, name+extn)
 }
 
-// Match returns true if a path's name contains a prefix.
+// Match returns true if a file path's name contains a prefix.
 func Match(orig, pref string) bool {
 	name := Name(orig)
 	name = strings.ToLower(name)
@@ -43,7 +43,7 @@ func Match(orig, pref string) bool {
 	return strings.HasPrefix(name, pref)
 }
 
-// Name returns a path's name.
+// Name returns a file path's name.
 func Name(orig string) string {
 	base := filepath.Base(orig)
 	if clip := strings.Index(base, "."); clip != -1 {
@@ -53,14 +53,14 @@ func Name(orig string) string {
 	return base
 }
 
-// Reextn returns a path with a different extension.
+// Reextn returns a file path with a different extension.
 func Reextn(orig, extn string) string {
 	dire := Dire(orig)
 	name := Name(orig)
 	return Join(dire, name, extn)
 }
 
-// Rename returns a path with a different name.
+// Rename returns a file path with a different name.
 func Rename(orig, name string) string {
 	dire := Dire(orig)
 	extn := Extn(orig)
