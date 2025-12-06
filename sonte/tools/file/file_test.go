@@ -73,7 +73,7 @@ func TestWrite(t *testing.T) {
 	orig := test.MockFile(t, "alpha.extn")
 
 	// success
-	err := Update(orig, "Body.\n", 0600)
+	err := Write(orig, "Body.\n", 0600)
 	test.AssertFile(t, orig, "Body.\n")
 	assert.NoError(t, err)
 }

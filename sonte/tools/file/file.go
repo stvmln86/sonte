@@ -60,7 +60,7 @@ func Search(orig, text string) (bool, error) {
 }
 
 // Write writes a new or existing file with a string.
-func Update(orig, body string, mode os.FileMode) error {
+func Write(orig, body string, mode os.FileMode) error {
 	if err := os.WriteFile(orig, []byte(body), mode); err != nil {
 		base := filepath.Base(orig)
 		return fmt.Errorf("cannot update file %q - %w", base, err)
