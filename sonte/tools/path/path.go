@@ -52,17 +52,3 @@ func Name(orig string) string {
 
 	return base
 }
-
-// Reextn returns a file path with a different extension.
-func Reextn(orig, extn string) string {
-	dire := Dire(orig)
-	name := Name(orig)
-	return Join(dire, name, extn)
-}
-
-// Rename returns a file path with a different name.
-func Rename(orig, name string) string {
-	dire := Dire(orig)
-	extn := Extn(orig)
-	return Join(dire, name, extn)
-}

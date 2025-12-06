@@ -7,8 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/stvmln86/sonte/sonte/tools/path"
 )
 
 // Delete deletes an existing file.
@@ -27,6 +25,16 @@ func Exists(orig string) bool {
 	return !errors.Is(err, os.ErrNotExist)
 }
 
+// Move moves an existing file to a new path.
+func Move(orig, dest string) error {
+	if err := os.Rename(orig, dest); err != nil {
+		base := filepath.Base(orig)
+		return fmt.Errorf("cannot move file %q - %w", base, err)
+	}
+
+	return nil
+}
+
 // Read returns an existing file's body as a string.
 func Read(orig string) (string, error) {
 	bytes, err := os.ReadFile(orig)
@@ -36,28 +44,6 @@ func Read(orig string) (string, error) {
 	}
 
 	return string(bytes), nil
-}
-
-// Reextn moves an existing file to a new extension.
-func Reextn(orig, extn string) error {
-	dest := path.Reextn(orig, extn)
-	if err := os.Rename(orig, dest); err != nil {
-		base := filepath.Base(orig)
-		return fmt.Errorf("cannot move file %q - %w", base, err)
-	}
-
-	return nil
-}
-
-// Rename moves an existing file to a new name.
-func Rename(orig, name string) error {
-	dest := path.Rename(orig, name)
-	if err := os.Rename(orig, dest); err != nil {
-		base := filepath.Base(orig)
-		return fmt.Errorf("cannot move file %q - %w", base, err)
-	}
-
-	return nil
 }
 
 // Search returns true if a file's body contains a substring.

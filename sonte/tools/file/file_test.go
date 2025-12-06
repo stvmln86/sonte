@@ -31,6 +31,18 @@ func TestExists(t *testing.T) {
 	assert.False(t, okay)
 }
 
+func TestMove(t *testing.T) {
+	// setup
+	orig := test.MockFile(t, "alpha.extn")
+	dest := strings.Replace(orig, "alpha.extn", "delta.extn", 1)
+
+	// success
+	err := Move(orig, dest)
+	assert.NoFileExists(t, orig)
+	assert.FileExists(t, dest)
+	assert.NoError(t, err)
+}
+
 func TestRead(t *testing.T) {
 	// setup
 	orig := test.MockFile(t, "alpha.extn")
@@ -38,30 +50,6 @@ func TestRead(t *testing.T) {
 	// success
 	body, err := Read(orig)
 	assert.Equal(t, "Alpha.\n", body)
-	assert.NoError(t, err)
-}
-
-func TestReextn(t *testing.T) {
-	// setup
-	orig := test.MockFile(t, "alpha.extn")
-	dest := strings.Replace(orig, "alpha.extn", "alpha.test", 1)
-
-	// success
-	err := Reextn(orig, ".test")
-	assert.NoFileExists(t, orig)
-	assert.FileExists(t, dest)
-	assert.NoError(t, err)
-}
-
-func TestRename(t *testing.T) {
-	// setup
-	orig := test.MockFile(t, "alpha.extn")
-	dest := strings.Replace(orig, "alpha.extn", "test.extn", 1)
-
-	// success
-	err := Rename(orig, "test")
-	assert.NoFileExists(t, orig)
-	assert.FileExists(t, dest)
 	assert.NoError(t, err)
 }
 

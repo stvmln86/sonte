@@ -69,15 +69,3 @@ func TestName(t *testing.T) {
 	name = Name("/dire/name")
 	assert.Equal(t, "name", name)
 }
-
-func TestReextn(t *testing.T) {
-	// success
-	dest := Reextn("/dire/name.extn", ".test")
-	assert.Equal(t, "/dire/name.test", dest)
-}
-
-func TestRename(t *testing.T) {
-	// success
-	dest := Rename("/dire/name.extn", "test")
-	assert.Equal(t, "/dire/test.extn", dest)
-}
