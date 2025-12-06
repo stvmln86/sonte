@@ -52,6 +52,14 @@ func (n *Note) Search(text string) (bool, error) {
 	return file.Search(n.Orig, text)
 }
 
+// Trash moves the Note to a ".trash" extension.
+func (n *Note) Trash() error {
+	dire := path.Dire(n.Orig)
+	name := n.Name()
+	dest := path.Join(dire, name, ".trash")
+	return file.Move(n.Orig, dest)
+}
+
 // Write overwrites the Note with a string.
 func (n *Note) Write(body string) error {
 	body = data.Body(body)

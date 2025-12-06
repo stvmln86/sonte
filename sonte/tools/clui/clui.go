@@ -9,11 +9,11 @@ import (
 
 // Env returns the value of an existing environment variable.
 func Env(name string) (string, error) {
-	data, ok := os.LookupEnv(name)
+	data, okay := os.LookupEnv(name)
 	data = strings.TrimSpace(data)
 
 	switch {
-	case !ok:
+	case !okay:
 		return "", fmt.Errorf("cannot find variable %q - does not exist", name)
 	case data == "":
 		return "", fmt.Errorf("cannot find variable %q - is blank", name)

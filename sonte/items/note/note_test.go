@@ -2,6 +2,7 @@ package note
 
 import (
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -74,6 +75,18 @@ func TestSearch(t *testing.T) {
 	// success
 	okay, err := note.Search("ALPH")
 	assert.True(t, okay)
+	assert.NoError(t, err)
+}
+
+func TestTrash(t *testing.T) {
+	// setup
+	note := mockNote(t)
+	dest := strings.Replace(note.Orig, "alpha.extn", "alpha.trash", 1)
+
+	// success
+	err := note.Trash()
+	assert.NoFileExists(t, note.Orig)
+	assert.FileExists(t, dest)
 	assert.NoError(t, err)
 }
 
